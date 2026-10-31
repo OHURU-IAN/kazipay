@@ -1,5 +1,7 @@
 # KaziPay - an AI billing agent for freelancers
 
+**Live demo: https://kazipay-8oco.onrender.com** (PayPal Sandbox; the free hosting sleeps when idle, so the first load can take about 50 seconds)
+
 *Kazi* is Swahili for **work**. KaziPay lets freelancers bill clients, chase late payments and forecast cash flow by chatting, on top of **PayPal Invoicing** and an AI agent (**Google Gemini** on the free tier, or **Claude**).
 
 > "Bill Priya at priya@acme.example $450 for 10 hours of API work, due in 7 days"
