@@ -61,7 +61,7 @@ async function generateWithFallback(ai: GoogleGenAI, models: string[], params: O
 }
 
 export async function runGemini(history: ChatHistory, tools: AgentTool[]): Promise<string> {
-  client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY, httpOptions: { timeout: REQUEST_TIMEOUT_MS } });
+  client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY?.trim(), httpOptions: { timeout: REQUEST_TIMEOUT_MS } });
   const byName = new Map(tools.map((t) => [t.name, t]));
   const config = {
     systemInstruction: SYSTEM_PROMPT,

@@ -13,9 +13,10 @@ let gateway: InvoiceGateway | null = null;
 export function getGateway(): InvoiceGateway {
   if (gateway) return gateway;
 
-  const clientId = process.env.PAYPAL_CLIENT_ID;
-  const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
-  const env = process.env.PAYPAL_ENV === "live" ? "live" : "sandbox";
+  // Trim: keys pasted into hosting dashboards often pick up a stray space or newline.
+  const clientId = process.env.PAYPAL_CLIENT_ID?.trim();
+  const clientSecret = process.env.PAYPAL_CLIENT_SECRET?.trim();
+  const env = process.env.PAYPAL_ENV?.trim() === "live" ? "live" : "sandbox";
 
   gateway = clientId && clientSecret ? new PayPalClient({ clientId, clientSecret, env }) : new DemoInvoiceStore();
   return gateway;
