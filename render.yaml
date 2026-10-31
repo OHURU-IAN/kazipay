@@ -1,0 +1,27 @@
+# Render Blueprint: New > Blueprint > pick this repo. Secrets marked sync: false
+# are typed into the Render dashboard during setup and never stored in git.
+services:
+  - type: web
+    name: kazipay
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: AI_PROVIDER
+        value: gemini
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false
+      - key: PAYPAL_ENV
+        value: sandbox
+      # Public demo: keep the free Gemini quota safe from heavy use.
+      - key: CHAT_RATE_LIMIT
+        value: "15"
