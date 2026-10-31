@@ -1,0 +1,27 @@
+import "server-only";
+import { PayPalClient } from "./client";
+import { DemoInvoiceStore } from "./demo";
+import type { InvoiceGateway } from "./types";
+
+// Module-level singletons survive across requests within one server process.
+let gateway: InvoiceGateway | null = null;
+
+/**
+ * Returns the PayPal sandbox/live client when credentials are configured,
+ * otherwise an in-memory demo store so the app still runs end to end.
+ */
+export function getGateway(): InvoiceGateway {
+  if (gateway) return gateway;
+
+  const clientId = process.env.PAYPAL_CLIENT_ID;
+  const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
+  const env = process.env.PAYPAL_ENV === "live" ? "live" : "sandbox";
+
+  gateway = clientId && clientSecret ? new PayPalClient({ clientId, clientSecret, env }) : new DemoInvoiceStore();
+  return gateway;
+}
+
+export function getPayPalClient(): PayPalClient | null {
+  const g = getGateway();
+  return g instanceof PayPalClient ? g : null;
+}

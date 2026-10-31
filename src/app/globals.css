@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f5efe3;
+  --paper-deep: #ece3d1;
+  --card: #fffdf8;
+  --ink: #1c2a22;
+  --ink-soft: #5b6a60;
+  --line: #d9cfbb;
+  --forest: #14532d;
+  --forest-soft: #dcebdf;
+  --saffron: #e2a12b;
+  --clay: #b5482c;
+  --clay-soft: #f6ddd4;
+  --sky: #2f6d8f;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-forest: var(--forest);
+  --color-forest-soft: var(--forest-soft);
+  --color-saffron: var(--saffron);
+  --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
+  --color-sky: var(--sky);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+}
+
+body {
+  background-color: var(--paper);
+  /* faint ledger rules */
+  background-image: repeating-linear-gradient(to bottom, transparent 0 31px, rgb(28 42 34 / 0.035) 31px 32px);
+  color: var(--ink);
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+}
+
+.font-display {
+  font-variation-settings: "SOFT" 50, "opsz" 96;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
