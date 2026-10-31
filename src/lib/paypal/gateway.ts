@@ -18,7 +18,10 @@ export function getGateway(): InvoiceGateway {
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET?.trim();
   const env = process.env.PAYPAL_ENV?.trim() === "live" ? "live" : "sandbox";
 
-  gateway = clientId && clientSecret ? new PayPalClient({ clientId, clientSecret, env }) : new DemoInvoiceStore();
+  // KAZIPAY_DEMO=1 forces sample data even when PayPal keys are present (screenshots, offline demos).
+  const forceDemo = process.env.KAZIPAY_DEMO?.trim() === "1";
+  gateway =
+    clientId && clientSecret && !forceDemo ? new PayPalClient({ clientId, clientSecret, env }) : new DemoInvoiceStore();
   return gateway;
 }
 
